@@ -1,12 +1,20 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const user = require("./model/user");
+const bcrypt = require("bcrypt");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const app = express();
 app.use(express.json());
+
+
 app.get('/' , (req , res)=>{
     res.send("hi i am auth server")
 });
+
+
 let checkuser = async(req , res , next) => {
     try {
         let obj = JSON.parse(req.query.body);
@@ -28,13 +36,26 @@ let checkuser = async(req , res , next) => {
     }
    
 }
-app.get('/user/signup', async(req , res , next)=>{checkuser(req ,res , next)}, async(req , res)=>{
+
+async function hash(password)
+{
+    let saltround = Math.floor(Math.random()*20)+1;
+    console.log(saltround);
+    let hashpassword = await bcrypt.hash(password , saltround);
+    return {hashpassword , saltround};
+}
+
+app.get('/user/signup', checkuser , async(req , res)=>{
     try{
 
         let obj = JSON.parse(req.query.body);
         const myUser = new user();
         myUser.email = obj.email;
-        myUser.password = obj.password;
+       
+        let hashObject =await hash(obj.password);
+        myUser.password = hashObject.hashpassword;
+        myUser.saltround = hashObject.saltround;
+        console.log(hashObject.hashpassword);
         await myUser.save();
         res.send(myUser);
     }
@@ -46,5 +67,5 @@ app.get('/user/signup', async(req , res , next)=>{checkuser(req ,res , next)}, a
 
 
 
-mongoose.connect("mongodb+srv://admin:admin1234@cluster0.m4dtr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-app.listen("3002" , ()=>{console.log("auth server running in 3002")})
+mongoose.connect("mongodb+srv://admin:admin1234@cluster0.m4dtr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+app.listen(process.env.port , ()=>{console.log(`auth server running in ${process.env.port}`)})
