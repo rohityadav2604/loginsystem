@@ -18,32 +18,47 @@ app.get('/' , (req , res)=>{
 let checkuser = async(req , res , next) => {
     try {
         let obj = JSON.parse(req.query.body);
-       let alluser = await user.find();
-       let f =0;
-       console.log(obj);
-       
-       alluser.forEach(async(user)=>{
-        
-           if(obj.email == user.email)
-           {
-               console.log("inside if block");
-                  let pass = bcrypt.compareSync(obj.password , user.password);
-                  if(pass)
-                  {
-                      res.send("user exist");
-                  }
-                  else
-                  {
-                      res.send("password is incorrect");
-                  }
-                  
-                  
-            }   
-           
-       })
-       if(f==0)
-       next();
+       let alluser = await user.find({email : obj.email});
+       console.log(alluser);
+       if(alluser.length === 0 )
+       {
+           next();
+       }
+       else if(bcrypt.compareSync(obj.password , alluser[0].password))
+       {
+           res.send("user exist");
+       }
+       else
+       {
+           res.send("password is incorrect");
+       }
     }
+    //    let f =0;
+    //    console.log(obj);
+       
+    //    alluser.forEach((user)=>{
+        
+    //        if(obj.email === user.email)
+    //        {
+    //               f=1;
+    //               console.log("inside if block");
+    //               let pass = bcrypt.compareSync(obj.password , user.password);
+    //               if(pass)
+    //               {
+    //                   res.send("user exist");
+    //               }
+    //               else
+    //               {
+    //                   res.send("password is incorrect");
+    //               }
+    //               return;
+                  
+    //         }   
+           
+    //    })
+    //    if(f==0)
+    //    next();
+    // }
     catch(err)
     {
         console.log(err);
@@ -70,7 +85,7 @@ app.get('/user/signup/auth', checkuser , async(req , res)=>{
         myUser.password = hashObject.hashpassword;
         myUser.saltround = hashObject.saltround;
         
-        console.log(hashObject.hashpassword);
+        
         await myUser.save();
         res.send(myUser.username);
     }
