@@ -34,14 +34,14 @@ let checkEmail = ( req , res , next)=>{
       res.send("email is incorect");
     }
 }
-app.get('/user/login' , checkEmail , async (req , res)=>{
+app.post('/user/login' , checkEmail , async (req , res)=>{
    
     try{
           
          let email = req.body.email;
          let password = req.body.password;
          
-         let authres =   await axios.get('http://localhost:3003/user/login' , {
+         let authres =   await axios.get('http://localhost:3003/user/login/auth' , {
          params:{"body" : {
            "email" : email,
            "password" : password,

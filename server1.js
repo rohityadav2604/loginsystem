@@ -38,7 +38,7 @@ let checkEmail = ( req , res , next)=>{
 }
 
 
-app.post('/user' , checkEmail , async (req , res)=>{
+app.post('/user/signup' , checkEmail , async (req , res)=>{
    
  try{
        
@@ -46,7 +46,7 @@ app.post('/user' , checkEmail , async (req , res)=>{
       let password = req.body.password;
       let name  = req.body.name;
       let username  = req.body.username
-      let authres =   await axios.get('http://localhost:3003/user/signup' , {
+      let authres =   await axios.get('http://localhost:3003/user/signup/auth' , {
       params:{"body" : {
         "email" : email,
         "password" : password,
