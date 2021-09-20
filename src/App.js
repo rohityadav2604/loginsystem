@@ -1,10 +1,22 @@
-
+import {BrowserRouter as Router , Switch , Route} from "react-router-dom"
 import Signup from "./Signup"
+import Login  from "./Login"
+import FrontPage from "./Frontpage"
 let App= ()=>{
   return (
     <div>
      <h1>hello</h1>
-     <Signup />
+     
+     <Router>
+       <Switch>
+
+         <Route exact path = "/signup"> <Signup /> </Route>
+         <Route  exact path = "/login"> <Login /> </Route>
+         <Route exact path = "/"> <FrontPage /> </Route>
+       </Switch>
+     </Router>
+
+     
     </div>
 
     
