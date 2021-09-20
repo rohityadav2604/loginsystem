@@ -44,9 +44,20 @@ let Signup = ()=>{
 
         onClick = {async()=>{
             let user = {name , email , password , username};
-           let res = await axios.post("/user" , user);
-            console.log(res);
-            history.push('/login')
+           let res = await axios.post("/user/signup" , user);
+           if(res.data == "email is invalid")
+           {
+               history.push("/signup");
+           }
+           else if(res.data == "user exist" || res.data == "password is incorrect")
+           {
+               history.push("/login");
+           }
+           else
+           {
+               history.push('/login')
+           }
+           
         }}
         >Signup</button>
 
