@@ -47,11 +47,17 @@ let Signup = ()=>{
            let res = await axios.post("/user/signup" , user);
            if(res.data == "email is invalid")
            {
+               alert("email is invalid");
                history.push("/signup");
            }
-           else if(res.data == "user exist" || res.data == "password is incorrect")
+           else if(res.data == "user exist")
            {
                history.push("/login");
+           }
+           else if(res.data == "password is incorrect")
+           {
+                alert("password is incorrect");
+                history.push("/login");
            }
            else
            {
