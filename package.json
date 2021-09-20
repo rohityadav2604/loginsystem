@@ -18,5 +18,5 @@
     "nodemon": "^2.0.12",
     "querystring": "^0.2.1"
   },
-  "proxy": "http://localhost:3002"
+  "proxy": "http://localhost:3003"
 }

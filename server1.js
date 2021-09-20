@@ -4,8 +4,11 @@ const { json } = require("express");
 const app = express();
 app.use(express.json());
 app.get('/' ,(req , res)=>{res.send("hello from server 1")});
-let checkEmail = ( req , res , next ,user)=>{
 
+
+let checkEmail = ( req , res , next)=>{
+
+     let user = req.body;
      let email = user.email;
      let containsymbol = false;
      
@@ -33,16 +36,22 @@ let checkEmail = ( req , res , next ,user)=>{
        res.send("email is incorect");
      }
 }
-app.post('/user' , async (req , res , next)=>{checkEmail(req , res , next , req.body)} , async (req , res)=>{
+
+
+app.post('/user' , checkEmail , async (req , res)=>{
    
  try{
        
       let email = req.body.email;
       let password = req.body.password;
-    let authres =   await axios.get('http://localhost:3002/user/signup' , {
+      let name  = req.body.name;
+      let username  = req.body.username
+      let authres =   await axios.get('http://localhost:3003/user/signup' , {
       params:{"body" : {
         "email" : email,
-        "password" : password
+        "password" : password,
+        "name" : name,
+        "username": username
       }}
     })
      //let obj = JSON.parse(authres);
@@ -58,4 +67,6 @@ app.post('/user' , async (req , res , next)=>{checkEmail(req , res , next , req.
      
      
 })
-app.listen("3000" , ()=>{console.log("flam server 1 running on port 3000")});
+
+
+app.listen("3001" , ()=>{console.log("flam server 1 running on port 3001")});
