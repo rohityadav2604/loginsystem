@@ -51,13 +51,15 @@ app.get('/user/signup', checkuser , async(req , res)=>{
         let obj = JSON.parse(req.query.body);
         const myUser = new user();
         myUser.email = obj.email;
-       
+        myUser.username = obj.username;
+        myUser.name = obj.name;
         let hashObject =await hash(obj.password);
         myUser.password = hashObject.hashpassword;
         myUser.saltround = hashObject.saltround;
+        
         console.log(hashObject.hashpassword);
         await myUser.save();
-        res.send(myUser);
+        res.send(myUser.username);
     }
     catch(err)
     {
