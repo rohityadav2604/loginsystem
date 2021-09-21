@@ -19,7 +19,7 @@ let checkuser = async(req , res , next) => {
     try {
         let obj = JSON.parse(req.query.body);
        let alluser = await user.find({email : obj.email});
-       console.log(alluser);
+      
        if(alluser.length === 0 )
        {
            next();
@@ -33,32 +33,7 @@ let checkuser = async(req , res , next) => {
            res.send("password is incorrect");
        }
     }
-    //    let f =0;
-    //    console.log(obj);
-       
-    //    alluser.forEach((user)=>{
-        
-    //        if(obj.email === user.email)
-    //        {
-    //               f=1;
-    //               console.log("inside if block");
-    //               let pass = bcrypt.compareSync(obj.password , user.password);
-    //               if(pass)
-    //               {
-    //                   res.send("user exist");
-    //               }
-    //               else
-    //               {
-    //                   res.send("password is incorrect");
-    //               }
-    //               return;
-                  
-    //         }   
-           
-    //    })
-    //    if(f==0)
-    //    next();
-    // }
+   
     catch(err)
     {
         console.log(err);
@@ -68,7 +43,7 @@ let checkuser = async(req , res , next) => {
 
 async function hash(password)
 {
-   // let saltround = Math.floor(Math.random()*20)+1;
+   
     let hashpassword = await bcrypt.hash(password , saltround);
     return {hashpassword , saltround};
 }
