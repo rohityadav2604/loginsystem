@@ -48,8 +48,7 @@ app.post('/user/login' , checkEmail , async (req , res)=>{
            
          }}
        })
-        //let obj = JSON.parse(authres);
-        //console.log(authres.data)
+        
         res.send(authres.data);
    
      }
