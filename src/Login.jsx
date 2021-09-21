@@ -7,10 +7,11 @@ let Login = ()=>{
     let [email , setemail] = useState("");
     let [password , setpassword] = useState("");
     
+    
     return (
         <div className="Signup-container">
 
-        <h1>Welcome to Flam</h1>
+       
         <label>Email</label>
         <input
          onChange = {(e)=>{setemail(e.currentTarget.value)}}
@@ -20,6 +21,7 @@ let Login = ()=>{
         onChange = {(e)=>{setpassword(e.currentTarget.value)}}
         className="input-container password" type="password"/>
         <button
+        className = "btn-log"
         onClick = {async()=>{
             let user = {email , password};
             let res = await axios.post("/user/login" , user);

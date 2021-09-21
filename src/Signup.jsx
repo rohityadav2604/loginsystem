@@ -15,7 +15,7 @@ let Signup = ()=>{
     return (
         <div className="Signup-container">
 
-        <h1>Welcome to Flam</h1>
+        
         <label>Name</label>
         <input
         onChange = {(e)=>{
@@ -41,7 +41,7 @@ let Signup = ()=>{
         }}
         className="input-container password" type="password"/>
         <button 
-
+         className="btn-log"
         onClick = {async()=>{
             let user = {name , email , password , username};
            let res = await axios.post("/user/signup" , user);

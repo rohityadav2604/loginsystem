@@ -3,10 +3,11 @@ import Signup from "./Signup"
 import Login  from "./Login"
 import FrontPage from "./Frontpage"
 import Home from "./Home"
+import "./App.css"
 let App= ()=>{
   return (
     <div>
-     <h1>hello</h1>
+     <h1 className="header">Welcome to Flam</h1>
      
      <Router>
        <Switch>

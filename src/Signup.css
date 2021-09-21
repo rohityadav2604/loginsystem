@@ -6,8 +6,23 @@
 .Signup-container{
     height: 50%;
     width: 30%;
-    background-color: aquamarine;
+    background-color: #ecf0f1;
+    position: absolute;
     display: flex;
     align-items: center;
     flex-direction: column;
+    top:20%;
+    left :30%; 
+}
+.input-container{
+    margin: 2%;
+    width: 80%;
+    height: 10%;
+    font-size: 100%;
+    background-color: white;
+}
+.btn-log{
+    height: 10%;
+    width: 40%;
+
 }
