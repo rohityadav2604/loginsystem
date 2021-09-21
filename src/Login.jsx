@@ -15,15 +15,22 @@ let Login = ()=>{
         <label>Email</label>
         <input
          onChange = {(e)=>{setemail(e.currentTarget.value)}}
-         className="input-container Email" type="text"/>
+         className="input-container Email" type="text" required/>
         <label>password</label>
         <input 
         onChange = {(e)=>{setpassword(e.currentTarget.value)}}
-        className="input-container password" type="password"/>
+        className="input-container password" type="password" required/>
         <button
         className = "btn-log"
         onClick = {async()=>{
             let user = {email , password};
+            console.log(user);
+            if(user.email == "" || user.password=="")
+            {
+                alert("input and password is mandatory");
+                history.push("/login");
+                return;
+            }
             let res = await axios.post("/user/login" , user);
             if(res.data == "signup first")
             {

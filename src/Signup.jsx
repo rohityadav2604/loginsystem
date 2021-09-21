@@ -21,29 +21,34 @@ let Signup = ()=>{
         onChange = {(e)=>{
             setname(e.currentTarget.value)
         }}
-         className="input-container Name" type="text"/>
-        <label>UserName</label>
+         className="input-container Name" type="text" required="true"/>
+        <label>Username</label>
         <input
         onChange = {(e)=>{
             setusername(e.currentTarget.value);
         }}
-         className="input-container username" type="text"/>
+         className="input-container username" type="text" required="true"/>
         <label>Email</label>
         <input 
         onChange = {(e)=>{
             setemail(e.currentTarget.value);
         }}
-        className="input-container Email" type="text"/>
-        <label>password</label>
+        className="input-container Email" type="text" required="true"/>
+        <label>Password</label>
         <input 
         onChange = {(e)=>{
             setpassword(e.currentTarget.value);
         }}
-        className="input-container password" type="password"/>
+        className="input-container password" type="password" required="true"/>
         <button 
          className="btn-log"
         onClick = {async()=>{
             let user = {name , email , password , username};
+            if(user.name == "" || user.email == "" || user.password == "" || user.username=="")
+            {
+                alert("all field are mandatory");
+                return;
+            }
            let res = await axios.post("/user/signup" , user);
            if(res.data == "email is invalid")
            {
@@ -70,4 +75,4 @@ let Signup = ()=>{
      </div>
     )
 }
-export default Signup
+export default Signup;
