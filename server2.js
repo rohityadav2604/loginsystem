@@ -1,40 +1,31 @@
 const express = require("express");
 const axios = require("axios");
 const { json } = require("express");
+const validator = require('validator');
 const app = express();
 app.use(express.json());
 
+
+
 let checkEmail = ( req , res , next)=>{
 
-    let user = req.body;
-    let email = user.email;
-    let containsymbol = false;
-    
-    let containcom = false; 
-    if(email[0]=== '@')
-    {
-      res.send("email is invalid");
-    }
-    for(let i =0;i<email.length;i++)
-    {
-       if(email[i] == '@')
-       {
-         containsymbol=true;
-       }
-       if(email.includes(".com"))
-       {
-          containcom=  true;
-       }
-    }
-    if(containcom && containsymbol)
-    {
-      next();
-    }
-    else{
-      res.send("email is incorect");
-    }
+  
+let resValidate =  validator.isEmail(req.body.email);
+
+  
+  if(resValidate)
+  {
+    next();
+  }
+  else
+  {
+   res.send("email is invalid");
+  }
+
+ 
 }
-app.post('/user/login' , checkEmail , async (req , res)=>{
+
+app.post('/user/login' ,  checkEmail , async (req , res)=>{
    
     try{
           
