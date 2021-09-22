@@ -42,6 +42,28 @@ let checkuser = async(req , res , next) => {
    
 }
 
+let checkusersignup = async(req , res , next) => {
+    try {
+        let obj = JSON.parse(req.query.body);
+       let alluser = await user.find({email : obj.email});
+       
+       if(alluser.length === 0 )
+       {
+           next();
+       }
+       else
+       {
+           res.send("user exist")
+       }
+    }
+   
+    catch(err)
+    {
+        console.log(err);
+    }
+   
+}
+
 async function hash(password)
 {
    
@@ -49,7 +71,7 @@ async function hash(password)
     return {hashpassword , saltround};
 }
 
-app.get('/user/signup/auth', checkuser , async(req , res)=>{
+app.get('/user/signup/auth', checkusersignup , async(req , res)=>{
     try{
 
         let obj = JSON.parse(req.query.body);
