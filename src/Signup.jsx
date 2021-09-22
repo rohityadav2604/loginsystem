@@ -50,6 +50,7 @@ let Signup = ()=>{
                 return;
             }
            let res = await axios.post("/user/signup" , user);
+           console.log(res.data);
            if(res.data == "email is invalid")
            {
                alert("email is invalid");
@@ -57,6 +58,7 @@ let Signup = ()=>{
            }
            else if(res.data == "user exist")
            {
+               alert("user exist already");
                history.push("/login");
            }
            else if(res.data == "password is incorrect")

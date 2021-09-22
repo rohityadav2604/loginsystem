@@ -32,6 +32,7 @@ let Login = ()=>{
                 return;
             }
             let res = await axios.post("/user/login" , user);
+            console.log(res.data);
             if(res.data == "signup first")
             {
                 alert("signup first");
