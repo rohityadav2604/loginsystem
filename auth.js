@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const user = require("./model/user");
 const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
+
 const saltround = 10;
 dotenv.config();
 
@@ -19,7 +20,7 @@ let checkuser = async(req , res , next) => {
     try {
         let obj = JSON.parse(req.query.body);
        let alluser = await user.find({email : obj.email});
-      
+       
        if(alluser.length === 0 )
        {
            next();
@@ -76,5 +77,5 @@ app.get("/user/login/auth" , checkuser , async(req , res)=>{
 
 
 
-mongoose.connect("mongodb+srv://admin:admin1234@cluster0.m4dtr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+mongoose.connect(process.env.db);
 app.listen(process.env.port , ()=>{console.log(`auth server running in ${process.env.port}`)})
